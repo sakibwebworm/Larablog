@@ -26,4 +26,19 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+    /*a user can have many posts*/
+    public function posts()
+    {
+        return $this->hasMany(Post::class, 'user_id');
+    }
+    /*A user can have multiple roles*/
+    public function roles()
+    {
+        return $this->belongsToMany('App\Role')->withTimestamps();
+    }
+    /*A user can have multiple comments*/
+    public function comments()
+    {
+        return $this->hasMany('App\Comment')->withTimestamps();
+    }
 }
