@@ -20,21 +20,12 @@ class Post extends Model
     /*A post can have many category*/
     public function categories()
     {
-        return $this->belongsToMany('App\Category')->withTimestamps();
-    }
-    /*Grab recent comments*/
-    public function grabRecentComments(){
-       return $this->comments()->with($this->user());
+        return $this->belongsToMany(Category::class, 'category_post')->withTimestamps();
     }
     /*Grab recent posts*/
-    public function grabRecentPosts(){
-        $recentPosts = DB::table('posts')->select('title')->orderBy('id')->limit(5)->get();
+    public static function grabRecentPosts(){
+        $recentPosts = DB::table('posts')->select('id','title')->orderBy('id')->limit(5)->get();
         return $recentPosts;
-    }
-    /*Grab number of comments*/
-    public function getTotalCommentsAttribute()
-    {
-        return $this->hasMany('Post')->whereUserId($this->author_id)->count();
     }
     /*Grab comments with username*/
     public function grabSinglePostComments($id){
@@ -45,4 +36,20 @@ class Post extends Model
         ->get();
     return $singlePostComments;
     }
+    /*Grab recent comments*/
+    public static function  grabRecentComments(){
+        $recentComments=DB::table('users')
+            ->join('comments', 'users.id', '=', 'comments.author_id')
+            ->join('posts', 'posts.id', '=', 'comments.post_id')
+            ->select('name', 'title','posts.id')
+            ->limit(3)
+            ->get();
+        return $recentComments;
+    }
+    /*Grab posts by category*/
+    /*Post Archieve by month*/
+    public function postArchieve(){
+        
+    }
+
 }

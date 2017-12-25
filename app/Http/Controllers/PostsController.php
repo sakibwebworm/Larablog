@@ -10,14 +10,19 @@ class PostsController extends Controller
     public function index(){
         $posts=new Post();
         $postsPerPage=$posts->with('comments')->paginate(3);
-        $recentpost=$posts->grabRecentPosts();
-        return view('frontend.master',compact('postsPerPage','recentpost'));
+        $categories= $posts->categories;
+        return view('frontend.master',compact('postsPerPage','recentComments'));
     }
     /*show single post*/
     public function show($id){
         $postObject=new Post();
         $singlePost=$postObject->with('user')->findOrFail($id);
+        $categories=$postObject->findOrFail($id)->categories;
         $singlepostComments=$postObject->grabSinglePostComments($id);
-        return view('frontend.single_post', compact('singlePost','singlepostComments'));
+        return view('frontend.single_post', compact('singlePost','singlepostComments','categories'));
+    }
+    /*Show recent comment with username*/
+    public function showCommentsWithUSername(){
+
     }
 }

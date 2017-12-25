@@ -13,7 +13,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        //gab recent posts
+        view()->composer('frontend.sidebar',function($view){
+         $view
+             ->with('recentpost',\App\Post::grabRecentPosts())
+             ->with('recentComments',\App\Post::grabRecentComments());
+        });
+
+
     }
 
     /**
