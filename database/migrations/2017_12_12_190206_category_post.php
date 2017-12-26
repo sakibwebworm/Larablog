@@ -21,6 +21,7 @@ class CategoryPost extends Migration
             $table->integer('post_id')->unsigned()->nullable();
             $table->foreign('post_id')->references('id')
                 ->on('posts')->onDelete('cascade');
+            $table->primary(['category_id','post_id']);
 
             $table->timestamps();
         });

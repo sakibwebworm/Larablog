@@ -17,7 +17,8 @@ class AppServiceProvider extends ServiceProvider
         view()->composer('frontend.sidebar',function($view){
          $view
              ->with('recentpost',\App\Post::grabRecentPosts())
-             ->with('recentComments',\App\Post::grabRecentComments());
+             ->with('recentComments',\App\Post::grabRecentComments())
+             ->with('topCategories',\App\Category::topCategories());
         });
 
 

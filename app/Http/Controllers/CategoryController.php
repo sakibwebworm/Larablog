@@ -14,9 +14,8 @@ class CategoryController extends Controller
      */
     public function index(Category $category)
     {
-        //
-        $postsPerPage=$category->posts;
-        return view('frontend.master',compact('postsPerPage'));
+      $postsPerPage=$category->find($category->id)->posts;
+      return view('frontend.master',compact('postsPerPage'));
     }
 
     /**

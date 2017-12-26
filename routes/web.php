@@ -13,4 +13,4 @@
 
 Route::get('/', 'PostsController@index');
 Route::get('/post/{id}', 'PostsController@show');
-Route::get('/category/{id}', 'CategoryController@index');
+Route::get('/category/{category}', 'CategoryController@index');

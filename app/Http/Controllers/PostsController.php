@@ -6,9 +6,8 @@ use App\Post;
 use App\Comment;
 class PostsController extends Controller
 {
-    //homepage
-    public function index(){
-        $posts=new Post();
+    //homepagecate
+    public function index(Post $posts){
         $postsPerPage=$posts->with('comments')->paginate(3);
         $categories= $posts->categories;
         return view('frontend.master',compact('postsPerPage','recentComments'));
@@ -23,6 +22,10 @@ class PostsController extends Controller
     }
     /*Show recent comment with username*/
     public function showCommentsWithUSername(){
+
+    }
+    /*Grab popular categories*/
+    public function grabPopularcategories(){
 
     }
 }

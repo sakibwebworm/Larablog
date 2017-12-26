@@ -51,5 +51,4 @@ class Post extends Model
     public function postArchieve(){
         
     }
-
 }
