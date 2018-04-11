@@ -11,7 +11,7 @@ class DatabaseSeeder extends Seeder
      *
      * @return void
      */
-    public function run(Profile $profile)
+    public function run()
     {   /*cREATE FAKE DATA FOR USER,POST,COMMENT,CATEGORY*/
 
         factory(App\User::class,10)->create();
@@ -20,14 +20,15 @@ class DatabaseSeeder extends Seeder
         factory(App\Comment::class,100)->create();
 
         /*Assign profile to each user*/
+        $faker= new Faker();
         $users=App\User::all();
         foreach($users as $user){
-         $profile->about=Faker::paragraph;
-         $profile->picture=Faker::imageUrl($width=640, $height=480, 'cats', true, 'Faker');
+         $profile=new Profile();
+         $profile->about="Edit me";
+         $profile->picture="https://lorempixel.com/640/480/cats/Faker/?48114";
          $profile->user_id=$user->id;
          $profile->save();
         }
-        $this->info('Profile created');
         /*Assign roles to each users*/
 
         $roles = App\Role::all();

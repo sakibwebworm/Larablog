@@ -39,6 +39,17 @@ class User extends Authenticatable
     /*A user can have multiple comments*/
     public function comments()
     {
-        return $this->hasMany('App\Comment')->withTimestamps();
+        return $this->hasMany(Comment::class,'author_id');
     }
+    /*An user has one profile*/
+    public function profile()
+    {
+        return $this->hasOne('App\Profile');
+    }
+    /*String Replace*/
+    public function replace($name,$search='-',$replace=' '){
+        return str_replace($search,$replace,$name);
+    }
+    /*Find user by name*/
+
 }

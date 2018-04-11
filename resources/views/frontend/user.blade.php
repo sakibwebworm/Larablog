@@ -75,46 +75,18 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <div class="container">
         <div class="col-md-8 single-main">
             <div class="single-grid">
-                <img src="{{$singlePost->image_path}}" alt=""/>
-                <p>{{$singlePost->body}} </div>
-            <ul class="comment-list">
-                <h5 class="post-author_head">Written by <a href="/user/@php echo str_replace(' ','-',$singlePost->user->name); @endphp" title="Posts by admin" rel="author">{{$singlePost->user->name}}</a></h5>
-                <li><img src="{{$singlePost->user->img_path}}" class="img-responsive" alt="">
-                    <div class="desc">
-                        <p>View all posts by: <a href="/?author_id={{$singlePost->user->id}}" title="Posts by admin" rel="author">{{$singlePost->user->name}}</a></p>
-                    </div>
-                    <div class="clearfix"></div>
-                </li>
-            </ul>
-            @foreach($singlepostComments as $comment)
-            <ul class="comment-list">
-                <h5 class="post-author_head">Commented By <a href="/user/@php echo str_replace(' ','-',$comment->name); @endphp" title="Posts by admin" rel="author">{{$comment->name}}</a></h5>
-                <h5 class="post-author_head pull-right">Commented on {{ \Carbon\Carbon::parse($comment->posted_at)->toFormattedDateString() }}</h5>
-                <li><img src="{{$comment->img_path}}" class="img-responsive" alt="">
-                    <div class="desc">
-                        <p>{{$comment->content}}</p>
-                    </div>
-                    <div class="clearfix"></div>
-                </li>
-            </ul>
-            @endforeach
-            <div class="content-form">
-                <h3>Leave a comment</h3>
-                <form>
-                    <input type="text" placeholder="Name" required/>
-                    <input type="text" placeholder="Email" required/>
-                    <input type="text" placeholder="Phone" required/>
-                    <textarea placeholder="Message"></textarea>
-                    <input type="submit" value="SEND"/>
-                </form>
-            </div>
+                <h3 class="text-capitalize">Name:{{$singleUser->name}}</h3>
+                <img src="{{$profile->picture}}" alt="{{$singleUser->name}}"/>
+                <p>{{$profile->about}} </div>
+                <p>Number of posts: {{$numberOfPosts}}</p>
+                <p>Number of comments: {{$numberOfComments}}</p>
         </div>
 
         @include('frontend.sidebar')
         <div class="clearfix"></div>
     </div>
 </div>
-</div>
+</body>
 <!---->
 <div class="footer">
     <div class="container">
