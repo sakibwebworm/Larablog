@@ -49,6 +49,11 @@ class Post extends Model
     /*Grab posts by category*/
     /*Post Archieve by month*/
     public function postArchieve(){
-        
+        //select MONTHNAME(created_at) as month,count(posts.id) from posts group by month
+        $archieves=DB::table('posts')
+            ->select(DB::raw('MONTHNAME(created_at) as month,count(posts.id) as count'))
+            ->groupBy('month')
+            ->get();
+        return $archieves;
     }
 }

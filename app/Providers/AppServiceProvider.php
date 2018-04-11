@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -15,10 +16,12 @@ class AppServiceProvider extends ServiceProvider
     {
         //gab recent posts
         view()->composer('frontend.sidebar',function($view){
-         $view
-             ->with('recentpost',\App\Post::grabRecentPosts())
-             ->with('recentComments',\App\Post::grabRecentComments())
-             ->with('topCategories',\App\Category::topCategories());
+            $post=new \App\Post();
+            $view
+                ->with('recentpost',$post::grabRecentPosts())
+                ->with('recentComments',$post::grabRecentComments())
+                ->with('topCategories',\App\Category::topCategories())
+                ->with('archieve',$post->postArchieve());
         });
 
 

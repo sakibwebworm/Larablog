@@ -11,6 +11,12 @@
 |
 */
 
+use App\Post;
+
 Route::get('/', 'PostsController@index');
 Route::get('/post/{id}', 'PostsController@show');
 Route::get('/category/{category}', 'CategoryController@index');
+
+Route::get('/test',function(){
+   dd(Post::where(id,1)) ;
+});

@@ -9,8 +9,9 @@ class PostsController extends Controller
     //homepagecate
     public function index(Post $posts){
         $postsPerPage=$posts->with('comments')->paginate(3);
-        $categories= $posts->categories;
-        return view('frontend.master',compact('postsPerPage','recentComments'));
+        //archieve
+        $archieve=$posts->postArchieve();
+        return view('frontend.master',compact('postsPerPage','recentComments','archieve'));
     }
     /*show single post*/
     public function show($id){

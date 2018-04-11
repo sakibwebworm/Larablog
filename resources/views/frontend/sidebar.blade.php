@@ -19,10 +19,9 @@
     <div class="archives">
         <h3>ARCHIVES</h3>
         <ul>
-            <li><a href="#">October 2013</a></li>
-            <li><a href="#">September 2013</a></li>
-            <li><a href="#">August 2013</a></li>
-            <li><a href="#">July 2013</a></li>
+            @foreach($archieve as $month)
+                <li><a href="#">{{$month->month}} ({{$month->count}})</a></a></li>
+            @endforeach
         </ul>
     </div>
     <div class="categories">
