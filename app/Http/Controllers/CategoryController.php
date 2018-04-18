@@ -12,6 +12,36 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    /**
+     * Displays datatables front end view
+     *
+     * @return \Illuminate\View\View
+     */
+    public function getIndex()
+    {
+        return view('datatables.index');
+    }
+
+    /**
+     * Process datatables ajax request.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function anyData()
+    {
+        $posts = Category::select(['id', 'user_id', 'title','body', 'created_at', 'updated_at'])->get();
+        return Datatables::of($posts)
+            ->addColumn('action', function ($post) {
+                return '<a href="#edit-'.$post->id.'" class="btn btn-xs btn-primary" data-edit="'.$post->id.'" onclick=" populateForm('.$post->id.')"><i class="glyphicon glyphicon-edit"></i> Edit</a><a href="#delete-'.$post->id.'" class="btn btn-xs btn-danger" data-delete="'.$post->id.'"><i class="glyphicon glyphicon-edit"></i> Delete</a>';
+            })
+            ->editColumn('id', 'ID: {{$id}}')
+            ->make(true);
+    }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index(Category $category)
     {
       $postsPerPage=$category->find($category->id)->posts;
