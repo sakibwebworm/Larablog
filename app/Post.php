@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
+    protected $fillable = [
+        'title', 'body'
+    ];
     //
     /*A post belongs to a user*/
     public function user()

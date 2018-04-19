@@ -15,6 +15,7 @@
         <label for="about">About</label>
         <textarea name="about" id="about" name="about" cols="30" rows="10">{{$user->profile->about}}</textarea>
     </div>
+
     <div class="form-group">
         <label for="role">Role</label>
         <select id="role" name="role" class="form-control">

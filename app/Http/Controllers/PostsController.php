@@ -61,10 +61,32 @@ class PostsController extends Controller
     }
     /*Show edit form*/
     public function edit($id){
-        $post=new Post();
-        $postWithcategory=$post::with('categories')->findOrFail($id);
+        //get the post
+        $post=Post::findOrFail($id);
+        //get the category or categories for the post
+        $post_categories=$post->findOrFail($id)->categories()->pluck('id')->toArray();
+        //get all the categories
         $allCategory=Category::all();
-        return view('admin.editpost',compact('postWithcategory','allCategory'));
+        return view('admin.editpost',compact('post','post_categories','allCategory'));
+    }
+    public function update(Request $request, $id)
+    {
+        //
+        $post=Post::findOrFail($id);
+        $post->update($request->only('name','body'));
+        $allcategory=$post->findOrFail($id)->categories()->pluck('id')->toArray();
+        foreach($request->category as $category){
+            if(!in_array($category,$allcategory)){
+                $post->categories()->attach($category);
+            }
+            foreach($allcategory as $category){
+                if(!in_array($category,$request->category)){
+                    $post->categories()->detach($category);
+                }
+            }
+        }
+
+        return back();
     }
     /*Show recent comment with username*/
     public function showCommentsWithUSername(){

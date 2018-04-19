@@ -119,7 +119,7 @@ class UsersController extends Controller
        $user->save();
        $data=$request->all();
        if($request->has('picture')){
-       $getimageName = time() . '.' . $request->picture->getClientOriginalExtension();
+        $getimageName = time() . '.' . $request->picture->getClientOriginalExtension();
         $request->picture->move(public_path('images'), $getimageName);
         $data['picture'] = '/images/' . $getimageName;
         }

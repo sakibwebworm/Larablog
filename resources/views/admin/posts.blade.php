@@ -1,4 +1,5 @@
 @extends('admin.partials.admin-header')
+@include('admin.partials.navigation')
 <div class="content-wrapper">
     <div class="container-fluid">
         <div class="row">
@@ -28,24 +29,70 @@
         </div>
     </div>
     @extends('admin.partials.admin-footer')
+    @section('additionahtml')
 
+        <footer class="sticky-footer">
+            <div class="container">
+                <div class="text-center">
+                    <small>Copyright © Your Website 2018</small>
+                </div>
+            </div>
+        </footer>
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fa fa-angle-up"></i>
+        </a>
+        <!-- Logout Modal-->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <a class="btn btn-primary" href="login.html">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{--Modal form--}}
+        <div class="modal fade modal-fullscreen" id="editmodel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="lara_form">
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endsection
     @section('additionajs')
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.7.11/jquery.tinymce.min.js"></script>
-        <script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
+        <script src="/js/jquery.tinymce.min.js"></script>
+        <script src="/js/tinymce.min.js"></script>
         <script>
             var editor_config = {
                 path_absolute : "/",
-                selector: "textarea.body",
+                selector: "textarea",
                 plugins: [
-                    "advlist autolink lists link image charmap print preview hr anchor pagebreak",
-                    "searchreplace wordcount visualblocks visualchars code fullscreen",
-                    "insertdatetime media nonbreaking save table contextmenu directionality",
-                    "emoticons template paste textcolor colorpicker textpattern codesample",
-                    "fullpage toc tinymcespellchecker imagetools help"
+                    'advlist autolink lists link image charmap print preview anchor textcolor',
+                    'searchreplace visualblocks code fullscreen',
+                    'insertdatetime media table contextmenu paste code help wordcount'
                 ],
                 toolbar: "insertfile undo redo | styleselect | bold italic strikethrough | alignleft aligncenter alignright alignjustify | ltr rtl | bullist numlist outdent indent removeformat formatselect| link image media | emoticons charmap | code codesample | forecolor backcolor",
-                external_plugins: { "nanospell": "http://YOUR_DOMAIN.COM/js/tinymce/plugins/nanospell/plugin.js" },
-                nanospell_server:"php",
                 browser_spellcheck: true,
                 relative_urls: false,
                 remove_script_host: false,
@@ -74,7 +121,6 @@
                 }
             };
 
-            tinymce.init(editor_config);
         </script>
         <script>
             (($ => {
@@ -156,7 +202,9 @@
             function populateForm (id){
                 $.ajax({url: "/populateform/post/"+id, success: function(result){
                     $("#lara_form").empty().append(result);
+                    tinymce.remove('textarea');
                     $('#editmodel').modal('show').fullscreen();
+                    tinymce.init(editor_config);
                 }});
             }
         </script>

@@ -42,3 +42,4 @@ Route::get('/populateform/user','PagesController@populateForm');
 Route::get('/populateform/user/{id}','Userscontroller@edit');
 Route::get('/populateform/post/{id}','Postscontroller@edit');
 Route::post('/updateuser/{id}','Userscontroller@update');
+Route::post('/updatepost/{id}','Postscontroller@update');

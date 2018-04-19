@@ -6,7 +6,8 @@ use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
-
+use Illuminate\Http\Request;
+use Illuminate\Auth\Events\Registered;
 class RegisterController extends Controller
 {
     /*
@@ -21,7 +22,15 @@ class RegisterController extends Controller
     */
 
     use RegistersUsers;
-
+    /**
+     * Show the application registration form.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showRegistrationForm()
+    {
+        return view('admin.register');
+    }
     /**
      * Where to redirect users after registration.
      *
@@ -38,6 +47,31 @@ class RegisterController extends Controller
     {
         $this->middleware('guest');
     }
+    /**
+     * Handle a registration request for the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+        if($request->has('picture')){
+            $getimageName = time() . '.' . $request->picture->getClientOriginalExtension();
+            $request->picture->move(public_path('images'), $getimageName);
+            $data['picture'] = '/images/' . $getimageName;
+        }
+        event(new Registered($user = $this->create($request->all())));
+        //register as editor
+        $user->roles()->attach(2);
+        //save profile
+
+        $user->profile()->create($request->except('user', 'email','password'));
+        $this->guard()->login($user);
+
+        return $this->registered($request, $user)
+            ?: redirect($this->redirectPath());
+    }
 
     /**
      * Get a validator for an incoming registration request.
@@ -51,6 +85,7 @@ class RegisterController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
+            'about'=>'required|string|max:255'
         ]);
     }
 
