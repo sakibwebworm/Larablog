@@ -50,6 +50,17 @@ class User extends Authenticatable
     public function replace($name,$search='-',$replace=' '){
         return str_replace($search,$replace,$name);
     }
-    /*Find user by name*/
+    /*Check user role*/
+    public function hasRole($name)
+    {
+        foreach($this->roles as $role)
+        {
+            if($role->name==$name)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 
 }

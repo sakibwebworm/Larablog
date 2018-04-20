@@ -34,7 +34,7 @@ class PostsController extends Controller
         $posts = Post::select(['id', 'user_id', 'title','body', 'created_at', 'updated_at'])->get();
         return Datatables::of($posts)
             ->addColumn('action', function ($post) {
-                return '<a href="#edit-'.$post->id.'" class="btn btn-xs btn-primary" data-edit="'.$post->id.'" onclick=" populateForm('.$post->id.')"><i class="glyphicon glyphicon-edit"></i> Edit</a><a href="#delete-'.$post->id.'" class="btn btn-xs btn-danger" data-delete="'.$post->id.'"><i class="glyphicon glyphicon-edit"></i> Delete</a>';
+                return '<a href="#edit-'.$post->id.'" class="btn btn-xs btn-primary" data-edit="'.$post->id.'" onclick=" populateForm('.$post->id.')"><i class="glyphicon glyphicon-edit"></i> Edit</a><a href="post/delete/'.$post->id.'" class="btn btn-xs btn-danger" data-delete="'.$post->id.'"><i class="glyphicon glyphicon-edit"></i> Delete</a>';
             })
             ->editColumn('id', 'ID: {{$id}}')
             ->make(true);
@@ -88,6 +88,13 @@ class PostsController extends Controller
 
         return back();
     }
+    public function destroy($id)
+    {
+        Post::destroy($id);
+        \Session::flash('flash_message', 'Post has been deleted!');
+        return back();
+    }
+
     /*Show recent comment with username*/
     public function showCommentsWithUSername(){
 

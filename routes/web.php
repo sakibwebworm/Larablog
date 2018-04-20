@@ -28,18 +28,31 @@ Route::get('/home', 'HomeController@index')->name('home');
 ]);*/
 
 Route::get('/getusers', 'UsersController@anyData');
-Route::get('/posts',function(){
-    return view('admin.posts');
+
+Route::group(
+    /*User only routes*/
+    array('prefix' => 'admin','middleware' => 'auth'), function () {
+    Route::get('/posts',function(){
+        return view('admin.posts');
+    });
+    Route::get('/users',function(){
+        return view('admin.user');
+    });
+    Route::get('/categories',function(){
+        return view('admin.categories');
+    });
 });
-Route::get('/categories',function(){
-    return view('admin.categories');
-});
-Route::get('user/delete/{id}', 'Userscontroller@destroy');
-Route::get('/getposts', 'PostsController@anydata');
-Route::get('/getcategories', 'CategoryController@anydata');
-//Route::get('/populateform/user/{id}','PagesController@populateFormdata');
-Route::get('/populateform/user','PagesController@populateForm');
-Route::get('/populateform/user/{id}','Userscontroller@edit');
-Route::get('/populateform/post/{id}','Postscontroller@edit');
-Route::post('/updateuser/{id}','Userscontroller@update');
-Route::post('/updatepost/{id}','Postscontroller@update');
+Route::get('/getcategories', 'PostsController@anydata');
+/*Admin only routes*/
+
+    //user management routes
+    Route::get('user/delete/{id}', 'Userscontroller@destroy');
+    Route::get('/populateform/user/{id}','Userscontroller@edit');
+    Route::post('/updateuser/{id}','Userscontroller@update');
+    Route::get('/populateform/post/{id}','Postscontroller@edit');
+    Route::get('post/delete/{id}', 'Postscontroller@destroy');
+    Route::get('/getposts', 'PostsController@anydata');
+    Route::post('/updatecategory/{id}','Categorycontroller@update');
+    Route::get('/populateform/category/{id}','Categorycontroller@edit');
+    Route::get('category/delete/{id}', 'Categorycontroller@destroy');
+    Route::post('/updatepost/{id}','Postscontroller@update');

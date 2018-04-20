@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
 
 class CategoryController extends Controller
 {
@@ -22,6 +24,13 @@ class CategoryController extends Controller
         return view('datatables.index');
     }
 
+    private function validator(array $data)
+    {
+        return Validator::make($data, [
+            'name' => 'required|string|max:255|unique:categories'
+        ]);
+    }
+
     /**
      * Process datatables ajax request.
      *
@@ -29,10 +38,10 @@ class CategoryController extends Controller
      */
     public function anyData()
     {
-        $posts = Category::select(['id', 'user_id', 'title','body', 'created_at', 'updated_at'])->get();
-        return Datatables::of($posts)
-            ->addColumn('action', function ($post) {
-                return '<a href="#edit-'.$post->id.'" class="btn btn-xs btn-primary" data-edit="'.$post->id.'" onclick=" populateForm('.$post->id.')"><i class="glyphicon glyphicon-edit"></i> Edit</a><a href="#delete-'.$post->id.'" class="btn btn-xs btn-danger" data-delete="'.$post->id.'"><i class="glyphicon glyphicon-edit"></i> Delete</a>';
+        $categories = Category::select(['id', 'name', 'created_at', 'updated_at'])->get();
+        return Datatables::of($categories)
+            ->addColumn('action', function ($categories) {
+                return '<a href="#edit-'.$categories->id.'" class="btn btn-xs btn-primary" data-edit="'.$categories->id.'" onclick=" populateForm('.$categories->id.')"><i class="glyphicon glyphicon-edit"></i> Edit</a><a href="category/delete/'.$categories->id.'" class="btn btn-xs btn-danger" data-delete="'.$categories->id.'"><i class="glyphicon glyphicon-edit"></i> Delete</a>';
             })
             ->editColumn('id', 'ID: {{$id}}')
             ->make(true);
@@ -86,9 +95,12 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit($id)
     {
         //
+        //get the category
+        $category=Category::findOrFail($id);
+        return view('admin.editcategory',compact('category'));
     }
 
     /**
@@ -98,9 +110,13 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, $id)
     {
         //
+        $category=Category::findOrFail($id);
+        $this->validator($request->all())->validate();
+        $category->update($request->all());
+        return back();
     }
 
     /**
@@ -109,8 +125,11 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy($id)
     {
         //
+        Category::destroy($id);
+        \Session::flash('flash_message', 'Category has been deleted!');
+        return back();
     }
 }

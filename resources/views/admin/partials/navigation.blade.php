@@ -12,7 +12,7 @@
                 </a>
                 <ul class="sidenav-second-level collapse" id="collapseusers">
                     <li>
-                        <a href="/users">Management</a>
+                        <a href="/admin/users">Management</a>
                     </li>
                 </ul>
             </li>
@@ -23,29 +23,18 @@
                 </a>
                 <ul class="sidenav-second-level collapse" id="collapseposts">
                     <li>
-                        <a href="/posts">Management</a>
-                    </li>
-                </ul>
-            </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="comments">
-                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapsecomments" data-parent="#exampleAccordion">
-                    <i class="fa fa-comments"></i>
-                    <span class="nav-link-text">Comments</span>
-                </a>
-                <ul class="sidenav-second-level collapse" id="collapsecomments">
-                    <li>
-                        <a href="/comments">Management</a>
+                        <a href="/admin/posts">Management</a>
                     </li>
                 </ul>
             </li>
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="category">
-                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapsecomments" data-parent="#exampleAccordion">
+                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapsecategory" data-parent="#exampleAccordion">
                     <i class="fa fa-tags"></i>
                     <span class="nav-link-text">Categories</span>
                 </a>
                 <ul class="sidenav-second-level collapse" id="collapsecategory">
                     <li>
-                        <a href="/categories">Management</a>
+                        <a href="/admin/categories">Management</a>
                     </li>
                 </ul>
             </li>
