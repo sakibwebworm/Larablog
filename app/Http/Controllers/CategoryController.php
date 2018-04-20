@@ -41,7 +41,7 @@ class CategoryController extends Controller
         $categories = Category::select(['id', 'name', 'created_at', 'updated_at'])->get();
         return Datatables::of($categories)
             ->addColumn('action', function ($categories) {
-                return '<a href="#edit-'.$categories->id.'" class="btn btn-xs btn-primary" data-edit="'.$categories->id.'" onclick=" populateForm('.$categories->id.')"><i class="glyphicon glyphicon-edit"></i> Edit</a><a href="category/delete/'.$categories->id.'" class="btn btn-xs btn-danger" data-delete="'.$categories->id.'"><i class="glyphicon glyphicon-edit"></i> Delete</a>';
+                return '<a href="#edit-'.$categories->id.'" class="btn btn-xs btn-primary" data-edit="'.$categories->id.'" onclick=" populateForm('.$categories->id.')"><i class="glyphicon glyphicon-edit"></i> Edit</a><a href="/category/delete/'.$categories->id.'" class="btn btn-xs btn-danger" data-delete="'.$categories->id.'"><i class="glyphicon glyphicon-edit"></i> Delete</a>';
             })
             ->editColumn('id', 'ID: {{$id}}')
             ->make(true);

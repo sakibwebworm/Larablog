@@ -35,7 +35,7 @@ class UsersController extends Controller
         $users = User::select(['id', 'name', 'email', 'created_at', 'updated_at'])->get();
         return Datatables::of($users)
             ->addColumn('action', function ($user) {
-                return '<a href="#edit-'.$user->id.'" class="btn btn-xs btn-primary" data-edit="'.$user->id.'" onclick=" populateForm('.$user->id.')"><i class="glyphicon glyphicon-edit"></i> Edit</a><a href="user/delete/'.$user->id.'" class="btn btn-xs btn-danger "  data-delete="'.$user->id.'" ><i class="glyphicon glyphicon-edit"></i> Delete</a>';
+                return '<a href="#edit-'.$user->id.'" class="btn btn-xs btn-primary" data-edit="'.$user->id.'" onclick=" populateForm('.$user->id.')"><i class="glyphicon glyphicon-edit"></i> Edit</a><a href="/user/delete/'.$user->id.'" class="btn btn-xs btn-danger "  data-delete="'.$user->id.'" ><i class="glyphicon glyphicon-edit"></i> Delete</a>';
             })
             ->editColumn('id', 'ID: {{$id}}')
             ->make(true);
