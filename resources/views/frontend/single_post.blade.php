@@ -79,7 +79,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 <p>{{$singlePost->body}} </div>
             <ul class="comment-list">
                 <h5 class="post-author_head">Written by <a href="/user/@php echo str_replace(' ','-',$singlePost->user->name); @endphp" title="Posts by admin" rel="author">{{$singlePost->user->name}}</a></h5>
-                <li><img src="{{$singlePost->user->img_path}}" class="img-responsive" alt="">
+                <li><img src="{{$authorPicture}}" class="img-responsive" alt="">
                     <div class="desc">
                         <p>View all posts by: <a href="/?author_id={{$singlePost->user->id}}" title="Posts by admin" rel="author">{{$singlePost->user->name}}</a></p>
                     </div>
@@ -90,7 +90,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             <ul class="comment-list">
                 <h5 class="post-author_head">Commented By <a href="/user/@php echo str_replace(' ','-',$comment->name); @endphp" title="Posts by admin" rel="author">{{$comment->name}}</a></h5>
                 <h5 class="post-author_head pull-right">Commented on {{ \Carbon\Carbon::parse($comment->posted_at)->toFormattedDateString() }}</h5>
-                <li><img src="{{$comment->img_path}}" class="img-responsive" alt="">
+                <li><img src="{{$comment->picture}}" class="img-responsive" alt="">
                     <div class="desc">
                         <p>{{$comment->content}}</p>
                     </div>

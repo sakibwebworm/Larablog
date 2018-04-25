@@ -34,7 +34,8 @@ class Post extends Model
     public function grabSinglePostComments($id){
     $singlePostComments=DB::table('users')
         ->join('comments', 'users.id', '=', 'comments.author_id')
-        ->select('name', 'img_path', 'content','posted_at')
+        ->join('profiles','users.id', '=', 'profiles.user_id')
+        ->select('name', 'picture', 'content','posted_at')
         ->where('post_id', '=', $id)
         ->get();
     return $singlePostComments;
@@ -59,5 +60,4 @@ class Post extends Model
             ->get();
         return $archieves;
     }
-   /**/
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Category;
+use App\Profile;
 use Illuminate\Http\Request;
 use App\Post;
 use App\Comment;
@@ -55,9 +56,10 @@ class PostsController extends Controller
     public function show($id){
         $postObject=new Post();
         $singlePost=$postObject->with('user')->findOrFail($id);
+        $authorPicture=Profile::where('user_id', $singlePost->user_id)->first()->picture;
         $categories=$postObject->findOrFail($id)->categories;
         $singlepostComments=$postObject->grabSinglePostComments($id);
-        return view('frontend.single_post', compact('singlePost','singlepostComments','categories'));
+        return view('frontend.single_post', compact('singlePost','singlepostComments','categories','authorPicture'));
     }
     /*Show edit form*/
     public function edit($id){
