@@ -74,8 +74,12 @@
                 </div>
             </form>
             <div class="text-center">
-                <a class="d-block small mt-3" href="register.html">Register an Account</a>
-                <a class="d-block small" href="forgot-password.html">Forgot Password?</a>
+                <a class="btn btn-link" href="{{ route('password.request') }}">
+                    Forgot Your Password?
+                </a>
+                <a class="btn btn-link" href="{{ route('login') }}">
+                    Log in
+                </a>
             </div>
         </div>
     </div>

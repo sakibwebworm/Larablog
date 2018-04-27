@@ -86,28 +86,26 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     <div class="clearfix"></div>
                 </li>
             </ul>
-            @foreach($singlepostComments as $comment)
-            <ul class="comment-list">
-                <h5 class="post-author_head">Commented By <a href="/user/@php echo str_replace(' ','-',$comment->name); @endphp" title="Posts by admin" rel="author">{{$comment->name}}</a></h5>
-                <h5 class="post-author_head pull-right">Commented on {{ \Carbon\Carbon::parse($comment->posted_at)->toFormattedDateString() }}</h5>
-                <li><img src="{{$comment->picture}}" class="img-responsive" alt="">
-                    <div class="desc">
-                        <p>{{$comment->content}}</p>
-                    </div>
-                    <div class="clearfix"></div>
-                </li>
-            </ul>
-            @endforeach
-            <div class="content-form">
-                <h3>Leave a comment</h3>
-                <form>
-                    <input type="text" placeholder="Name" required/>
-                    <input type="text" placeholder="Email" required/>
-                    <input type="text" placeholder="Phone" required/>
-                    <textarea placeholder="Message"></textarea>
-                    <input type="submit" value="SEND"/>
-                </form>
-            </div>
+            <div id="disqus_thread"></div>
+            <script>
+
+                /**
+                 *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+                 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+                var disqus_config = function () {
+                this.page.url = '{{url()->current()}}';  // Replace PAGE_URL with your page's canonical URL variable
+                this.page.identifier = 'post'+'{{$singlePost->id}}'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                };
+                (function() { // DON'T EDIT BELOW THIS LINE
+                    var d = document, s = d.createElement('script');
+                    s.src = 'https://tutorialine-1.disqus.com/embed.js';
+                    s.setAttribute('data-timestamp', +new Date());
+                    (d.head || d.body).appendChild(s);
+                })();
+            </script>
+            <script id="dsq-count-scr" src="//tutorialine-1.disqus.com/count.js" async></script>
+            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
         </div>
 
         @include('frontend.sidebar')
@@ -116,6 +114,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 </div>
 </div>
 <!---->
+
 <div class="footer">
     <div class="container">
         <p>Copyrights © 2015 Blog All rights reserved | Template by <a href="http://w3layouts.com/">W3layouts</a></p>
