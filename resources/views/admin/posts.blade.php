@@ -1,12 +1,14 @@
 @extends('admin.partials.admin-header')
 @include('admin.partials.navigation')
+
 <div class="content-wrapper">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-12">
-                <h1>Blank</h1>
-                <p>This is an example of a blank page that you can use as a starting point for creating new ones.</p>
-
+            <div class="col-12 text-center">
+                @if(Session::has('warning'))<div class="alert alert-success"id="hide_flash">{{Session::get('warning')}}</div>@endif
+                <h1>Posts</h1>
+                <p>Add new article</p>
+                <button class="btn btn-success btn-lg" onclick="addpost()">Add post</button>
                 <table id="users-table" class="table table-bordered">
                     <thead>
                     <tr>
@@ -181,6 +183,9 @@
                 });
             });
         </script>
+        <script type="text/javascript">
+            $('#hide_flash').fadeIn('fast').delay(3000).fadeOut('slow');
+        </script>
         <script>
             function populateForm (id){
                 $.ajax({url: "/populateform/post/"+id, success: function(result){
@@ -190,5 +195,18 @@
                     tinymce.init(editor_config);
                 }});
             }
+
+        </script>
+        <script>
+
+               function addpost(){
+                   $.ajax({url: "/createpost", success: function(result){
+                       $("#lara_form").empty().append(result);
+                       tinymce.remove('textarea');
+                       $('#editmodel').modal('show').fullscreen();
+                       tinymce.init(editor_config);
+                   }});
+               }
+
         </script>
 @endsection

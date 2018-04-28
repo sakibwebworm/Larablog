@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Http\Requests\CreateCategoryRequest;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
@@ -40,8 +41,8 @@ class CategoryController extends Controller
     {
         $categories = Category::select(['id', 'name', 'created_at', 'updated_at'])->get();
         return Datatables::of($categories)
-            ->addColumn('action', function ($categories) {
-                return '<a href="#edit-'.$categories->id.'" class="btn btn-xs btn-primary" data-edit="'.$categories->id.'" onclick=" populateForm('.$categories->id.')"><i class="glyphicon glyphicon-edit"></i> Edit</a><a href="/category/delete/'.$categories->id.'" class="btn btn-xs btn-danger" data-delete="'.$categories->id.'"><i class="glyphicon glyphicon-edit"></i> Delete</a>';
+            ->addColumn('action', function ($category) {
+                return '<a href="#edit-'.$category->id.'" class="btn btn-xs btn-primary" data-edit="'.$category->id.'" onclick=" populateForm('.$category->id.')"><i class="glyphicon glyphicon-edit"></i> Edit</a><a href="/category/delete/'.$category->id.'" class="btn btn-xs btn-danger" data-delete="'.$category->id.'"><i class="glyphicon glyphicon-edit"></i> Delete</a>';
             })
             ->editColumn('id', 'ID: {{$id}}')
             ->make(true);
@@ -65,6 +66,7 @@ class CategoryController extends Controller
     public function create()
     {
         //
+        return view('admin.addcategory');
     }
 
     /**
@@ -76,6 +78,8 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         //
+        Category::create($request->all());
+        return back()->withWarning( 'Your category has been saved!' );
     }
 
     /**

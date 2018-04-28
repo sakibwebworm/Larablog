@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 use App\Category;
+use App\Http\Requests\CreatePostRequest;
 use App\Profile;
 use Illuminate\Http\Request;
 use App\Post;
 use App\Comment;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
 class PostsController extends Controller
@@ -52,6 +54,27 @@ class PostsController extends Controller
         $archieve=$posts->postArchieve();
         return view('frontend.master',compact('postsPerPage','recentComments','archieve'));
     }
+    /*return form to create post*/
+    public function createpost()
+    {
+        //get all the categories
+        $allCategory=Category::all();
+        return view('admin.addpost',compact('allCategory'));
+    }
+
+    /*save post to database*/
+    public function addpost(CreatePostRequest $request){
+        $post=new Post();
+        $post->title=$request->get('title');
+        $post->body=$request->get('body');
+        $post->user_id=Auth::user()->id;
+        $post->save();
+        foreach($request->category as $category){
+            $post->categories()->attach($category);
+        }
+        return back()->withWarning( 'Your post has been saved!' );
+    }
+
     /*show single post*/
     public function show($id){
         $postObject=new Post();

@@ -20,7 +20,7 @@ class Posts extends Migration
         $table->string('title')->unique();
         $table->text('body');
         $table->timestamps();
-        $table->string('image_path');
+        $table->string('image_path')->nullable();
         $table->foreign('user_id')
             ->references('id')->on('users')
             ->onDelete('cascade');

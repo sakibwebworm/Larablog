@@ -6,8 +6,8 @@
             <div class="col-12">
                 <h1>Blank</h1>
                 <p>This is an example of a blank page that you can use as a starting point for creating new ones.</p>
-
-                <table id="users-table" class="table table-bordered">
+                <button class="btn btn-success btn-lg" onclick="addcategory()">Add Category</button>
+                <table id="categories-table" class="table table-bordered">
                     <thead>
                     <tr>
                         <th>Id</th>
@@ -123,7 +123,7 @@
         </script>
         <script>
             $(function() {
-                $('#users-table').DataTable({
+                $('#categories-table').DataTable({
                     processing: true,
                     serverSide: true,
                     ajax: '/getcategories',
@@ -144,6 +144,14 @@
                     tinymce.remove('textarea');
                     $('#editmodel').modal('show').fullscreen();
                     tinymce.init(editor_config);
+                }});
+            }
+        </script>
+        <script>
+            function addcategory(){
+                $.ajax({url: "/createcategory", success: function(result){
+                    $("#lara_form").empty().append(result);
+                    $('#editmodel').modal('show').fullscreen();
                 }});
             }
         </script>
