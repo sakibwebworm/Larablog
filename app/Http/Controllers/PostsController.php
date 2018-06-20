@@ -12,6 +12,7 @@ use Yajra\DataTables\Facades\DataTables;
 
 class PostsController extends Controller
 {
+    private $post;
     /**
      * Display a listing of the resource.
      *
@@ -22,6 +23,11 @@ class PostsController extends Controller
      *
      * @return \Illuminate\View\View
      */
+    public function __construct()
+    {
+        $this->post=new Post();
+    }
+
     public function getIndex()
     {
         return view('datatables.index');
@@ -64,13 +70,12 @@ class PostsController extends Controller
 
     /*save post to database*/
     public function addpost(CreatePostRequest $request){
-        $post=new Post();
-        $post->title=$request->get('title');
-        $post->body=$request->get('body');
-        $post->user_id=Auth::user()->id;
-        $post->save();
+        $this->post->title=$request->get('title');
+        $this->post->body=$request->get('body');
+        $this->post->user_id=Auth::user()->id;
+        $this->post->save();
         foreach($request->category as $category){
-            $post->categories()->attach($category);
+            $this->post->categories()->attach($category);
         }
         return back()->withWarning( 'Your post has been saved!' );
     }

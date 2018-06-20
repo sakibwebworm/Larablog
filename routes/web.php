@@ -35,6 +35,7 @@ Route::group(
     Route::post('/addpost','PostsController@addpost');
     Route::get('/createcategory','CategoryController@create');
     Route::post('/addcategory','CategoryController@store');
+    Route::get('/populateform/post/{id}','PostsController@edit');
 });
 
 Route::group(
@@ -60,6 +61,7 @@ Route::group(
     Route::get('/admin/users',function(){return view('admin.user');});
     Route::post('/updateuser/{id}','Userscontroller@update');
     Route::get('user/delete/{id}', 'Userscontroller@destroy');
+    Route::get('post/delete/{id}', 'PostsController@destroy');
     Route::get('/populateform/user/{id}','Userscontroller@edit');
     //post management
 
@@ -67,11 +69,15 @@ Route::group(
     //user management routes
 
 
-    Route::post('/updatepost/{id}','Postscontroller@update');
-    Route::get('/populateform/post/{id}','Postscontroller@edit');
-    Route::get('/getcategories','Categorycontroller@anydata');
+    Route::post('/updatepost/{id}','PostsController@update');
+
+    Route::get('category/delete/{id}', 'CategoryController@destroy');
+    Route::post('/updatecategory/{id}','CategoryController@update');
+    Route::get('/getcategories','CategoryController@anydata');
+    Route::get('/populateform/category/{id}','CategoryController@edit');
+
     Route::get('/getposts', 'PostsController@anydata');
-    Route::post('/updatecategory/{id}','Categorycontroller@update');
-    Route::get('/populateform/category/{id}','Categorycontroller@edit');
-    Route::get('category/delete/{id}', 'Categorycontroller@destroy');
+
+
+
 

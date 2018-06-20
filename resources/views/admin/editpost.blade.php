@@ -7,7 +7,7 @@
         </div>
         <div class="form-group">
             <label for="body">Body</label>
-            <textarea name="body" id="body" name="body" cols="30" rows="10">{!! $post->body !!}</textarea>
+            <textarea name="body" id="body" name="body"  cols="30" rows="10">{!! $post->body !!}</textarea>
         </div>
         <div class="form-group">
             <label for="category">Category</label>

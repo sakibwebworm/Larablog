@@ -18,5 +18,5 @@
         @endforeach
     </div>
     <a href="/admin/categories">Add category</a>
-    <button type="submit" class="btn btn-primary">Update</button>
+    <button type="submit" class="btn btn-primary">Submit</button>
 </form>
