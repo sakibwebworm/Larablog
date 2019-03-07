@@ -18,7 +18,9 @@
         </div>
     </div>
 </div>
- <form id="logout-form" action="http://lara-blog.sakib/logout" method="POST" style="display: none;"><input type="hidden" name="_token" value="l5jxoRBsFoYuRl3M54VyjlvsXYCxWtb8QDejpRlM"></form>
+<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+    {{ csrf_field() }}
+</form>
 <!-- Bootstrap core JavaScript-->
 <script src="/vendor/jquery/jquery.min.js"></script>
 <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

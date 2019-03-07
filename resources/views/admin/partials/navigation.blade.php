@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-    <a class="navbar-brand" href="index.html">Start Bootstrap</a>
+    <a class="navbar-brand" href="/">Lara blog</a>
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -38,7 +38,7 @@
                     </li>
                 </ul>
             </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="profile">
+           {{-- <li class="nav-item" data-toggle="tooltip" data-placement="right" title="profile">
                 <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseprofile" data-parent="#exampleAccordion">
                     <i class="fa fa-info"></i>
                     <span class="nav-link-text">Categories</span>
@@ -48,7 +48,7 @@
                         <a href="/profiles">Management</a>
                     </li>
                 </ul>
-            </li>
+            </li>--}}
         </ul>
         <ul class="navbar-nav sidenav-toggler">
             <li class="nav-item">

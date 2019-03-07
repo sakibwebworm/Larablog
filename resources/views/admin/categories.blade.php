@@ -4,9 +4,11 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
-                <h1>Blank</h1>
-                <p>This is an example of a blank page that you can use as a starting point for creating new ones.</p>
-                <button class="btn btn-success btn-lg" onclick="addcategory()">Add Category</button>
+               <div class="text-center">
+                   <h1>Categories</h1>
+                   <p>Add new category</p>
+                   <button class="btn btn-success btn-lg" onclick="addcategory()">Add Category</button>
+               </div>
                 <table id="categories-table" class="table table-bordered">
                     <thead>
                     <tr>
@@ -45,7 +47,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Categories</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
